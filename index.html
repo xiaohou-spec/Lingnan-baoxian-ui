@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="明白保是一个不卖保险、没有广告的公益保险知识科普查询平台视觉原型。">
+  <title>明白保｜公益保险知识科普</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23173c35'/%3E%3Cpath d='M32 12 16 19v12c0 10 7 17 16 21 9-4 16-11 16-21V19L32 12Z' fill='none' stroke='white' stroke-width='4'/%3E%3Cpath d='m23 31 6 6 12-13' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <svg class="icon-library" aria-hidden="true">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.7 3.2 7.8 7.5 9.5 4.3-1.7 7.5-4.8 7.5-9.5V6L12 3Z"></path><path d="m8.5 12 2.2 2.2 4.8-5"></path></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"></path></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 15a3 3 0 0 1-3 3H9l-5 3v-6a3 3 0 0 1-1-2V7a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3v8Z"></path><path d="M9.5 9a2.5 2.5 0 0 1 5 .5c0 1.5-2.5 1.5-2.5 3M12 15.5h.01"></path></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M3 5.5A3.5 3.5 0 0 1 6.5 2H11v17H6.5A3.5 3.5 0 0 0 3 22V5.5ZM21 5.5A3.5 3.5 0 0 0 17.5 2H13v17h4.5A3.5 3.5 0 0 1 21 22V5.5Z"></path></symbol>
+    <symbol id="i-health" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3Z"></path></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"></path></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"></path></symbol>
+    <symbol id="i-type" viewBox="0 0 24 24"><path d="M4 6V4h16v2M9 20h6M12 4v16"></path></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6V2Z"></path><path d="M14 2v5h5M9 12h6M9 16h6"></path></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7h.01"></path></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m12 3 10 18H2L12 3Z"></path><path d="M12 9v5M12 17h.01"></path></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"></path><path d="M6.1 8a7 7 0 0 1 11.8-1L20 12M4 12l2.1 5a7 7 0 0 0 11.8-1"></path></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M5 9H2v6h3l5 4V5L5 9ZM15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"></path></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"></path></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="header-inner container">
+      <a class="brand" href="#top" aria-label="明白保首页">
+        <span class="brand-mark"><svg><use href="#i-shield"></use></svg></span>
+        <span class="brand-name">明白保<small>公益保险科普</small></span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="主导航">
+        <a class="active" href="#top">首页</a>
+        <a href="#dictionary">大白话词典</a>
+        <a href="#pitfalls">避坑指南</a>
+        <a href="#claims">理赔指引</a>
+        <a href="#about">关于我们</a>
+      </nav>
+      <div class="header-actions">
+        <button class="elder-button" id="elder-toggle" type="button" aria-pressed="false">
+          <svg><use href="#i-type"></use></svg><span>长辈模式</span>
+        </button>
+        <button class="menu-button icon-button" id="menu-toggle" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="main-nav">
+          <svg><use href="#i-menu"></use></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="elder-toolbar" id="elder-toolbar" aria-label="长辈模式工具" hidden>
+    <div class="container">
+      <span><svg><use href="#i-check"></use></svg>简洁阅读模式：只保留重要内容</span>
+      <button id="elder-read-page" type="button" aria-pressed="false"><svg><use href="#i-volume"></use></svg><span>朗读本页</span></button>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="public-badge"><svg><use href="#i-shield"></use></svg>纯公益科普，不推销任何产品</div>
+        <h1 id="hero-title">保险的弯弯绕绕，<br>我们用大白话讲清楚。</h1>
+        <p class="hero-description">看不懂条款、担心被忽悠、出险后没头绪？在这里查知识、找方向、问明白，再做自己的决定。</p>
+        <div class="search-area">
+          <form class="hero-search" id="search-form" role="search">
+            <label for="site-search">你想了解什么？</label>
+            <div class="search-control">
+              <svg><use href="#i-search"></use></svg>
+              <input id="site-search" type="search" autocomplete="off" placeholder="试试“免赔额”或“被忽悠了怎么办”">
+              <button class="primary-button" type="submit">查一查</button>
+            </div>
+            <div class="search-results" id="search-results" aria-live="polite" hidden></div>
+          </form>
+          <div class="quick-search" aria-label="热门搜索">
+            <span>大家在查</span>
+            <button type="button" data-query="免赔额">免赔额</button>
+            <button type="button" data-query="等待期">等待期</button>
+            <button type="button" data-query="被忽悠了怎么办">被忽悠了怎么办</button>
+          </div>
+        </div>
+        <p class="privacy-note"><svg><use href="#i-check"></use></svg>无需登录，不收集收入、健康状况等敏感隐私</p>
+      </div>
+
+      <div class="translation-demo" id="translation-demo" aria-label="可操作的条款翻译示例">
+        <div class="demo-heading">
+          <span><svg><use href="#i-file"></use></svg>条款翻译台</span>
+          <span class="demo-tag" id="translation-state">条款原文</span>
+        </div>
+        <div class="translation-picker" role="group" aria-label="选择一条示例条款">
+          <button class="active" type="button" data-translation-term="免赔额">免赔额</button>
+          <button type="button" data-translation-term="等待期">等待期</button>
+          <button type="button" data-translation-term="既往症">既往症</button>
+        </div>
+        <div class="translation-stage" id="translation-stage">
+          <div class="translation-layer original-layer" id="original-layer">
+            <span class="excerpt-label">条款原文 · 示意</span>
+            <p id="translation-original">“在一个保单年度内，符合约定的医疗费用，需先扣除年度免赔额，再按约定比例给付……”</p>
+            <span class="layer-caption">每个字都认识，连起来却看不懂？</span>
+          </div>
+          <div class="translation-layer plain-layer" id="plain-layer" aria-hidden="true" inert>
+            <span class="excerpt-label">说人话就是</span>
+            <div class="term-line"><span id="translation-term">免赔额</span><strong id="translation-headline">先自己承担的一部分</strong></div>
+            <p id="translation-example">比如免赔额是 1 万元，符合报销条件的费用是 3 万元，先扣掉 1 万元，再按合同约定计算剩余部分。</p>
+            <button class="text-button" id="translation-more" type="button" data-open-term="免赔额">看看这个词的完整解释<svg><use href="#i-arrow"></use></svg></button>
+          </div>
+        </div>
+        <div class="translation-actions">
+          <button class="primary-button translate-button" id="translate-toggle" type="button" aria-pressed="false"><span>翻译成大白话</span><svg><use href="#i-arrow"></use></svg></button>
+          <span>同一句话，换一种能懂的表达</span>
+        </div>
+        <div class="demo-footnote"><svg><use href="#i-info"></use></svg>举例只为帮助理解，具体以保险合同为准</div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="平台信任承诺">
+      <div class="container trust-inner">
+        <div><svg><use href="#i-shield"></use></svg><span><strong>无利益关联</strong>与任何保险公司均无利益关联</span></div>
+        <div><svg><use href="#i-file"></use></svg><span><strong>来源可核验</strong>内容标注出处与更新时间</span></div>
+        <div><svg><use href="#i-refresh"></use></svg><span><strong>错误可纠正</strong>开放反馈，修改记录公开</span></div>
+      </div>
+    </section>
+
+    <section class="tasks-section container" aria-labelledby="tasks-title">
+      <div class="section-heading">
+        <div><p class="section-kicker">四件常遇到的事</p><h2 id="tasks-title">遇到保险问题，从这里开始</h2></div>
+        <p>不比较产品，不给购买建议，只帮你把问题弄清楚。</p>
+      </div>
+      <div class="task-grid">
+        <button class="task-card direction" type="button" id="direction-open">
+          <span class="task-icon"><svg><use href="#i-compass"></use></svg></span>
+          <span class="task-content"><strong>我该关注哪类保险？</strong><span>3～5 步点选问答，只找了解方向</span></span>
+          <span class="task-action">查险方向<svg><use href="#i-arrow"></use></svg></span>
+        </button>
+        <a class="task-card warning" href="#pitfalls">
+          <span class="task-icon"><svg><use href="#i-message"></use></svg></span>
+          <span class="task-content"><strong>这个说法靠谱吗？</strong><span>拆解销售话术，教你关键追问</span></span>
+          <span class="task-action">避坑判断<svg><use href="#i-arrow"></use></svg></span>
+        </a>
+        <a class="task-card dictionary" href="#dictionary">
+          <span class="task-icon"><svg><use href="#i-book"></use></svg></span>
+          <span class="task-content"><strong>这个专业词啥意思？</strong><span>一句话解释，再配个生活例子</span></span>
+          <span class="task-action">大白话词典<svg><use href="#i-arrow"></use></svg></span>
+        </a>
+        <a class="task-card claims" href="#claims">
+          <span class="task-icon"><svg><use href="#i-health"></use></svg></span>
+          <span class="task-content"><strong>出险了，接下来怎么办？</strong><span>梳理理赔流程，逐项准备材料</span></span>
+          <span class="task-action">理赔指引<svg><use href="#i-arrow"></use></svg></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="dictionary-section" id="dictionary" aria-labelledby="dictionary-title">
+      <div class="container">
+        <div class="section-heading dictionary-heading">
+          <div><p class="section-kicker">大白话词典</p><h2 id="dictionary-title">一个词，讲明白一件事</h2></div>
+          <p>一句话解释、一个生活例子、一个常见误区。</p>
+        </div>
+        <div class="dictionary-workspace">
+          <div class="term-browser">
+            <label for="term-filter">高频保险词</label>
+            <div class="term-filter"><svg><use href="#i-search"></use></svg><input id="term-filter" type="search" placeholder="筛选词条"></div>
+            <div class="term-list" role="tablist" aria-label="保险词条">
+              <button class="term-tab active" type="button" role="tab" aria-selected="true" data-term="免赔额"><span>免赔额</span><small>先自己承担多少？</small></button>
+              <button class="term-tab" type="button" role="tab" aria-selected="false" data-term="等待期"><span>等待期</span><small>什么时候才开始保障？</small></button>
+              <button class="term-tab" type="button" role="tab" aria-selected="false" data-term="犹豫期"><span>犹豫期</span><small>投保后还能反悔吗？</small></button>
+              <button class="term-tab" type="button" role="tab" aria-selected="false" data-term="现金价值"><span>现金价值</span><small>退保时能拿回多少？</small></button>
+              <button class="term-tab" type="button" role="tab" aria-selected="false" data-term="既往症"><span>既往症</span><small>投保前的病算在内吗？</small></button>
+            </div>
+          </div>
+          <article class="term-article" aria-live="polite">
+            <div class="article-topline"><span class="article-category">保险名词 · 白话解释</span><button class="sound-button" id="read-term" type="button"><svg><use href="#i-volume"></use></svg>朗读</button></div>
+            <h3 id="term-title">免赔额</h3>
+            <p class="term-plain" id="term-plain">保险公司开始按约定赔付前，需要你自己先承担的一部分费用。</p>
+            <div class="example-box"><span>举个生活例子</span><p id="term-example">免赔额是 1 万元，符合报销条件的医疗费用是 3 万元，通常先扣除 1 万元，再按合同约定计算剩余费用如何赔付。</p></div>
+            <div class="misconception"><svg><use href="#i-alert"></use></svg><div><strong>别这样理解</strong><p id="term-misconception">免赔额不等于所有花费都能累计，也不是每次理赔都重新扣除；要看合同约定的是年度免赔额还是次免赔额。</p></div></div>
+            <div class="related-terms"><span>顺便了解</span><div id="related-terms"><button type="button" data-open-term="等待期">等待期</button><button type="button" data-open-term="既往症">既往症</button></div></div>
+            <footer class="article-source"><div><svg><use href="#i-shield"></use></svg><span>专业审核展示位<strong>来源：产品方案示例内容</strong></span></div><span class="update-time">更新于 2026-11-06</span><button type="button" class="correction-open">我要纠错</button></footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="pitfalls-section" id="pitfalls" aria-labelledby="pitfalls-title">
+      <div class="container pitfalls-layout">
+        <div class="pitfalls-intro">
+          <p class="section-kicker">避坑判断</p>
+          <h2 id="pitfalls-title">听到这些话，<br>先别急着相信。</h2>
+          <p>不替你做购买决定，只帮你识别含糊表达，知道下一步该问什么。</p>
+          <div class="pitfall-rule"><svg><use href="#i-shield"></use></svg><span>不贬损机构<br>不比较产品<br>不引导投保</span></div>
+        </div>
+        <div class="pitch-analysis">
+          <div class="pitch-quote"><span>销售话术示意</span><blockquote>“这款产品什么都保，<br>闭眼买就行。”</blockquote></div>
+          <div class="risk-point"><svg><use href="#i-alert"></use></svg><div><strong>问题出在“什么都保”</strong><p>每份保险都有保障范围、责任免除和理赔条件。“都保”往往省略了最重要的限制。</p></div></div>
+          <div class="questions-block">
+            <h3>你可以追问这三句</h3>
+            <details open><summary>哪些情况明确不赔？<svg><use href="#i-chevron"></use></svg></summary><p>请对方指出合同中的“责任免除”条款，而不是只听口头概括。</p></details>
+            <details><summary>等待期和免赔额分别是多少？<svg><use href="#i-chevron"></use></svg></summary><p>问清时间、金额和计算方式，并核对合同对应位置。</p></details>
+            <details><summary>健康告知具体问哪些情况？<svg><use href="#i-chevron"></use></svg></summary><p>按书面问题如实回答，不凭“这个不用说”的口头承诺省略。</p></details>
+          </div>
+          <div class="correct-action"><svg><use href="#i-check"></use></svg><span><strong>更稳妥的做法</strong>拿到完整条款，重点阅读保障责任、责任免除、等待期和理赔材料。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="claims-section container" id="claims" aria-labelledby="claims-title">
+      <div class="section-heading">
+        <div><p class="section-kicker">理赔流程指引</p><h2 id="claims-title">出险之后，按步骤来</h2></div>
+        <p>先理清流程、备好材料。平台不代办理赔，也不承诺结果。</p>
+      </div>
+      <div class="claims-layout">
+        <ol class="claim-timeline">
+          <li><span>1</span><div><strong>及时报案</strong><p>通过保险公司官方渠道说明出险情况，记录报案编号。</p></div></li>
+          <li><span>2</span><div><strong>确认材料</strong><p>根据险种和实际事故，向官方客服核对所需材料。</p></div></li>
+          <li><span>3</span><div><strong>提交申请</strong><p>保留提交凭证与材料副本，留意补充材料通知。</p></div></li>
+          <li><span>4</span><div><strong>跟进结果</strong><p>如有疑问，要求说明依据；需要时通过官方渠道投诉。</p></div></li>
+        </ol>
+        <div class="materials-card">
+          <div class="materials-heading"><div><span>医疗险材料示意</span><h3>我的材料清单</h3></div><span id="material-progress">已准备 0 / 4 项</span></div>
+          <div class="material-list">
+            <label><input type="checkbox"><span class="custom-check"><svg><use href="#i-check"></use></svg></span><span><strong>理赔申请书</strong><small>按保险公司官方模板填写</small></span></label>
+            <label><input type="checkbox"><span class="custom-check"><svg><use href="#i-check"></use></svg></span><span><strong>身份与收款信息</strong><small>按官方要求准备</small></span></label>
+            <label><input type="checkbox"><span class="custom-check"><svg><use href="#i-check"></use></svg></span><span><strong>病历与诊断证明</strong><small>保留完整就诊记录</small></span></label>
+            <label><input type="checkbox"><span class="custom-check"><svg><use href="#i-check"></use></svg></span><span><strong>费用清单与票据</strong><small>原件要求以官方说明为准</small></span></label>
+          </div>
+          <p class="materials-note"><svg><use href="#i-info"></use></svg>这是界面演示，勾选状态不会上传或保存。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section container" id="about" aria-labelledby="about-title">
+      <div class="about-copy"><p class="section-kicker">公益，不止是一句口号</p><h2 id="about-title">把可信，放在每一页。</h2><p>平台只做知识科普、术语翻译、避坑指引和理赔流程梳理。不推荐具体产品，不设购买链接，不做保费报价。</p></div>
+      <div class="about-principles">
+        <div><svg><use href="#i-file"></use></svg><strong>官方来源</strong><span>后续内容仅采用可核验的官方公开资料</span></div>
+        <div><svg><use href="#i-clock"></use></svg><strong>定期复核</strong><span>展示更新时间，超过保鲜期重新审核</span></div>
+        <div><svg><use href="#i-refresh"></use></svg><strong>公开纠错</strong><span>接受用户反馈，保留内容修改记录</span></div>
+      </div>
+      <button class="secondary-button correction-open" type="button">发现内容问题？我要纠错</button>
+    </section>
+
+    <div class="disclaimer container" role="note"><svg><use href="#i-info"></use></svg><p><strong>公益科普声明</strong>本平台内容仅供参考，不构成任何投保建议、核保结论或理赔承诺。具体保障责任以保险合同及官方解释为准。</p></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="brand footer-brand" href="#top"><span class="brand-mark"><svg><use href="#i-shield"></use></svg></span><span class="brand-name">明白保<small>让保险知识更明白</small></span></a>
+      <p>无广告 · 无销售 · 无产品推荐</p>
+      <p class="prototype-label">小组评审用前端视觉原型</p>
+    </div>
+  </footer>
+
+  <dialog class="direction-dialog" id="direction-dialog" aria-labelledby="direction-title">
+    <button class="dialog-close icon-button" type="button" data-close-dialog aria-label="关闭"><svg><use href="#i-close"></use></svg></button>
+    <div class="dialog-badge"><svg><use href="#i-compass"></use></svg>查险方向 · 交互预览</div>
+    <h2 id="direction-title">先了解你，再给出关注方向</h2>
+    <p class="dialog-description">不采集收入，不推荐具体产品。以下为静态演示。</p>
+    <div class="wizard-progress"><span id="wizard-progress-bar"></span></div>
+    <div id="wizard-content"></div>
+    <p class="wizard-note"><svg><use href="#i-shield"></use></svg>结果仅用于知识科普，不构成投保建议</p>
+  </dialog>
+
+  <dialog class="correction-dialog" id="correction-dialog" aria-labelledby="correction-title">
+    <button class="dialog-close icon-button" type="button" data-close-dialog aria-label="关闭"><svg><use href="#i-close"></use></svg></button>
+    <div class="dialog-badge"><svg><use href="#i-refresh"></use></svg>内容纠错</div>
+    <h2 id="correction-title">哪里需要改正？</h2>
+    <p class="dialog-description">无需填写姓名或联系方式。当前为外观原型，不会发送数据。</p>
+    <form id="correction-form">
+      <label for="correction-content">问题描述</label>
+      <textarea id="correction-content" rows="5" required placeholder="请指出词条内容、来源或其他问题"></textarea>
+      <button class="primary-button" type="submit">预览提交反馈</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>
