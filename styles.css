@@ -597,3 +597,53 @@ dialog h2 { margin-top: 17px; padding-right: 22px; color: var(--ink-deep); font-
 
 
 .elder-button[aria-pressed="true"]:hover { border-color: var(--ink); background: var(--ink); color: var(--white); }
+
+
+main > .dictionary-section,
+main > .pitfalls-section,
+main > .claims-section { display: none; }
+.module-hero { position: relative; isolation: isolate; min-height: 350px; display: flex; align-items: center; background-image: var(--module-image); background-position: center; background-size: cover; color: var(--white); }
+.module-hero::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(13, 44, 39, 0.97) 0%, rgba(13, 44, 39, 0.86) 42%, rgba(13, 44, 39, 0.22) 100%); }
+.module-hero > .container { position: relative; padding-block: 45px; }
+.back-home { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; margin-bottom: 20px; color: #e1eee7; font-size: 13px; font-weight: 700; }
+.back-home svg { transform: rotate(180deg); transition: transform 160ms var(--ease-out); }
+.module-kicker { color: #afd3be; font-size: 13px; font-weight: 800; }
+.module-hero h1 { margin-top: 9px; color: var(--white); font-size: 46px; line-height: 1.28; letter-spacing: -0.035em; }
+.module-hero .container > p:last-child { max-width: 540px; margin-top: 16px; color: #d8e6df; font-size: 15px; line-height: 1.85; }
+.module-photo-credit { position: absolute; right: 24px; bottom: 12px; color: #edf5f0; font-size: 10px; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
+.module-switcher { display: flex; flex-wrap: wrap; gap: 8px; padding-block: 20px; border-bottom: 1px solid var(--border); }
+.module-switcher a { min-height: 44px; display: inline-flex; align-items: center; padding: 8px 15px; border: 1px solid var(--border); border-radius: 9px; color: var(--muted); font-size: 13px; font-weight: 700; transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, transform 140ms var(--ease-out); }
+.module-switcher a.active { border-color: var(--ink); background: var(--ink); color: var(--white); }
+.module-switcher a:active { transform: scale(0.98); }
+.module-body { padding-top: 42px; padding-bottom: 72px; }
+.module-body .pitch-analysis { max-width: 820px; margin-inline: auto; }
+.module-disclaimer { max-width: 820px; margin: 22px auto 16px; color: var(--muted); font-size: 12px; text-align: center; }
+.module-body > .correction-open { display: flex; margin: 0 auto; }
+.direction-page-panel { max-width: 760px; margin-inline: auto; padding: 32px 36px; border: 1px solid var(--border); border-radius: var(--radius-large); background: var(--white); box-shadow: 0 14px 36px rgba(23,60,53,0.06); }
+.direction-page-panel #wizard-content { min-height: 275px; }
+.direction-page-panel .wizard-note { justify-content: center; }
+@media (hover: hover) and (pointer: fine) {
+  .back-home:hover svg { transform: rotate(180deg) translateX(3px); }
+  .module-switcher a:not(.active):hover { border-color: #a8bbae; background: var(--sage); color: var(--ink); }
+}
+@media (max-width: 640px) {
+  .module-hero { min-height: 330px; background-position: 62% center; }
+  .module-hero::before { background: linear-gradient(90deg, rgba(13,44,39,0.96), rgba(13,44,39,0.72)); }
+  .module-hero h1 { font-size: 35px; }
+  .module-hero .container > p:last-child { font-size: 14px; }
+  .module-switcher { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 14px; }
+  .module-switcher a { flex: 0 0 auto; white-space: nowrap; }
+  .module-body { padding-top: 28px; padding-bottom: 52px; }
+  .direction-page-panel { padding: 23px 19px; }
+}
+.elder-mode .module-hero { min-height: 290px; }
+.elder-mode .module-hero h1 { font-size: 42px; }
+.elder-mode .module-hero .container > p:last-child { font-size: 20px; }
+.elder-mode .back-home { font-size: 17px; }
+.elder-mode .module-switcher a { min-height: 54px; font-size: 17px; }
+.elder-mode .direction-page-panel { padding: 28px; }
+@media (max-width: 640px) {
+  .elder-mode .module-hero h1 { font-size: 34px; }
+  .elder-mode .module-hero .container > p:last-child { font-size: 18px; }
+  .elder-mode .direction-page-panel { padding: 20px; }
+}

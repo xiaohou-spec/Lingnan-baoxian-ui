@@ -155,7 +155,10 @@ function renderTerm(term, shouldScroll = false) {
     tab.classList.toggle("active", selected);
     tab.setAttribute("aria-selected", String(selected));
   });
-  if (shouldScroll) document.querySelector("#dictionary").scrollIntoView({ behavior: reduceMotion.matches ? "instant" : "smooth" });
+  if (shouldScroll) {
+    window.location.href = `dictionary.html?term=${encodeURIComponent(term)}`;
+    return;
+  }
   if (activeTerm === term) return;
 
   swapTerm(() => {
@@ -220,7 +223,7 @@ function showSearchResults(query) {
 
   if (isPitfall) {
     const link = document.createElement("a");
-    link.href = "#pitfalls";
+    link.href = "pitfalls.html";
     link.innerHTML = `<svg aria-hidden="true"><use href="#i-message"></use></svg><span><strong>这个说法靠谱吗？</strong><small>查看销售话术拆解与追问三问</small></span><svg aria-hidden="true"><use href="#i-arrow"></use></svg>`;
     link.addEventListener("click", () => { searchResults.hidden = true; });
     searchResults.append(link);
@@ -228,7 +231,7 @@ function showSearchResults(query) {
 
   if (isClaim) {
     const link = document.createElement("a");
-    link.href = "#claims";
+    link.href = "claims.html";
     link.innerHTML = `<svg aria-hidden="true"><use href="#i-health"></use></svg><span><strong>出险后怎么处理？</strong><small>查看理赔步骤和材料清单</small></span><svg aria-hidden="true"><use href="#i-arrow"></use></svg>`;
     link.addEventListener("click", () => { searchResults.hidden = true; });
     searchResults.append(link);
@@ -407,10 +410,7 @@ function renderWizard(direction = 1, immediate = false) {
 }
 
 document.querySelector("#direction-open").addEventListener("click", () => {
-  wizardStep = 0;
-  wizardAnswers.length = 0;
-  renderWizard(1, true);
-  directionDialog.showModal();
+  window.location.href = "direction.html";
 });
 
 const correctionDialog = document.querySelector("#correction-dialog");
