@@ -246,6 +246,36 @@ function showSearchResults(query) {
   searchResults.hidden = false;
 }
 
+function showPopularSearches() {
+  searchResults.replaceChildren();
+  const label = document.createElement("p");
+  label.className = "search-section-label";
+  label.textContent = "热门搜索";
+  searchResults.append(label);
+  ["免赔额", "等待期", "被忽悠了怎么办"].forEach(query => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.innerHTML = `<svg aria-hidden="true"><use href="#i-search"></use></svg><span><strong>${query}</strong></span><svg aria-hidden="true"><use href="#i-arrow"></use></svg>`;
+    button.addEventListener("click", () => {
+      searchInput.value = query;
+      showSearchResults(query);
+    });
+    searchResults.append(button);
+  });
+  searchResults.hidden = false;
+}
+
+searchInput.addEventListener("focus", () => {
+  if (!searchInput.value.trim()) showPopularSearches();
+});
+searchInput.addEventListener("input", () => {
+  if (!searchInput.value.trim()) showPopularSearches();
+  else searchResults.hidden = true;
+});
+new MutationObserver(() => {
+  searchInput.setAttribute("aria-expanded", String(!searchResults.hidden));
+}).observe(searchResults, { attributes: true, attributeFilter: ["hidden"] });
+
 searchForm.addEventListener("submit", event => {
   event.preventDefault();
   showSearchResults(searchInput.value);

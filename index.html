@@ -75,17 +75,11 @@
             <label for="site-search">搜索保险知识</label>
             <div class="search-control">
               <svg><use href="#i-search"></use></svg>
-              <input id="site-search" type="search" autocomplete="off" placeholder="输入名词或问题">
+              <input id="site-search" type="search" autocomplete="off" placeholder="输入名词或问题" aria-controls="search-results" aria-expanded="false">
               <button class="primary-button" type="submit">查一查</button>
             </div>
             <div class="search-results" id="search-results" aria-live="polite" hidden></div>
           </form>
-          <div class="quick-search" aria-label="热门搜索">
-            <span>热门</span>
-            <button type="button" data-query="免赔额">免赔额</button>
-            <button type="button" data-query="等待期">等待期</button>
-            <button type="button" data-query="被忽悠了怎么办">被忽悠了怎么办</button>
-          </div>
         </div>
         <p class="privacy-note"><svg><use href="#i-check"></use></svg>无需登录</p>
       </div>
