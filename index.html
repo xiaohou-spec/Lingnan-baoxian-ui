@@ -8,6 +8,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23173c35'/%3E%3Cpath d='M32 12 16 19v12c0 10 7 17 16 21 9-4 16-11 16-21V19L32 12Z' fill='none' stroke='white' stroke-width='4'/%3E%3Cpath d='m23 31 6 6 12-13' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
+  <script src="overlay.js" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -66,32 +67,32 @@
   <main id="main">
     <section class="hero container" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <div class="public-badge"><svg><use href="#i-shield"></use></svg>纯公益科普，不推销任何产品</div>
-        <h1 id="hero-title">保险的弯弯绕绕，<br>我们用大白话讲清楚。</h1>
-        <p class="hero-description">看不懂条款、担心被忽悠、出险后没头绪？在这里查知识、找方向、问明白，再做自己的决定。</p>
+        <div class="public-badge"><svg><use href="#i-shield"></use></svg>公益科普</div>
+        <h1 id="hero-title">保险知识，<br>讲明白。</h1>
+        <p class="hero-description">不卖保险，没有广告。</p>
         <div class="search-area">
           <form class="hero-search" id="search-form" role="search">
-            <label for="site-search">你想了解什么？</label>
+            <label for="site-search">搜索保险知识</label>
             <div class="search-control">
               <svg><use href="#i-search"></use></svg>
-              <input id="site-search" type="search" autocomplete="off" placeholder="试试“免赔额”或“被忽悠了怎么办”">
+              <input id="site-search" type="search" autocomplete="off" placeholder="输入名词或问题">
               <button class="primary-button" type="submit">查一查</button>
             </div>
             <div class="search-results" id="search-results" aria-live="polite" hidden></div>
           </form>
           <div class="quick-search" aria-label="热门搜索">
-            <span>大家在查</span>
+            <span>热门</span>
             <button type="button" data-query="免赔额">免赔额</button>
             <button type="button" data-query="等待期">等待期</button>
             <button type="button" data-query="被忽悠了怎么办">被忽悠了怎么办</button>
           </div>
         </div>
-        <p class="privacy-note"><svg><use href="#i-check"></use></svg>无需登录，不收集收入、健康状况等敏感隐私</p>
+        <p class="privacy-note"><svg><use href="#i-check"></use></svg>无需登录</p>
       </div>
 
       <div class="translation-demo" id="translation-demo" aria-label="可操作的条款翻译示例">
         <div class="demo-heading">
-          <span><svg><use href="#i-file"></use></svg>条款翻译台</span>
+          <span><svg><use href="#i-file"></use></svg>条款翻译</span>
           <span class="demo-tag" id="translation-state">条款原文</span>
         </div>
         <div class="translation-picker" role="group" aria-label="选择一条示例条款">
@@ -103,20 +104,18 @@
           <div class="translation-layer original-layer" id="original-layer">
             <span class="excerpt-label">条款原文 · 示意</span>
             <p id="translation-original">“在一个保单年度内，符合约定的医疗费用，需先扣除年度免赔额，再按约定比例给付……”</p>
-            <span class="layer-caption">每个字都认识，连起来却看不懂？</span>
           </div>
           <div class="translation-layer plain-layer" id="plain-layer" aria-hidden="true" inert>
             <span class="excerpt-label">说人话就是</span>
             <div class="term-line"><span id="translation-term">免赔额</span><strong id="translation-headline">先自己承担的一部分</strong></div>
             <p id="translation-example">比如免赔额是 1 万元，符合报销条件的费用是 3 万元，先扣掉 1 万元，再按合同约定计算剩余部分。</p>
-            <button class="text-button" id="translation-more" type="button" data-open-term="免赔额">看看这个词的完整解释<svg><use href="#i-arrow"></use></svg></button>
+            <button class="text-button" id="translation-more" type="button" data-open-term="免赔额">查看解释<svg><use href="#i-arrow"></use></svg></button>
           </div>
         </div>
         <div class="translation-actions">
           <button class="primary-button translate-button" id="translate-toggle" type="button" aria-pressed="false"><span>翻译成大白话</span><svg><use href="#i-arrow"></use></svg></button>
-          <span>同一句话，换一种能懂的表达</span>
         </div>
-        <div class="demo-footnote"><svg><use href="#i-info"></use></svg>举例只为帮助理解，具体以保险合同为准</div>
+        <div class="demo-footnote"><svg><use href="#i-info"></use></svg>仅为示意，以合同为准</div>
       </div>
     </section>
 
@@ -129,29 +128,26 @@
     </section>
 
     <section class="tasks-section container" aria-labelledby="tasks-title">
-      <div class="section-heading">
-        <div><p class="section-kicker">四件常遇到的事</p><h2 id="tasks-title">遇到保险问题，从这里开始</h2></div>
-        <p>不比较产品，不给购买建议，只帮你把问题弄清楚。</p>
-      </div>
+      <div class="section-heading"><h2 id="tasks-title">选择功能</h2></div>
       <div class="task-grid">
         <button class="task-card direction" type="button" id="direction-open">
           <span class="task-icon"><svg><use href="#i-compass"></use></svg></span>
-          <span class="task-content"><strong>我该关注哪类保险？</strong><span>3～5 步点选问答，只找了解方向</span></span>
+          <span class="task-content"><strong>查险方向</strong></span>
           <span class="task-action">查险方向<svg><use href="#i-arrow"></use></svg></span>
         </button>
         <a class="task-card warning" href="pitfalls.html">
           <span class="task-icon"><svg><use href="#i-message"></use></svg></span>
-          <span class="task-content"><strong>这个说法靠谱吗？</strong><span>拆解销售话术，教你关键追问</span></span>
+          <span class="task-content"><strong>避坑判断</strong></span>
           <span class="task-action">避坑判断<svg><use href="#i-arrow"></use></svg></span>
         </a>
         <a class="task-card dictionary" href="dictionary.html">
           <span class="task-icon"><svg><use href="#i-book"></use></svg></span>
-          <span class="task-content"><strong>这个专业词啥意思？</strong><span>一句话解释，再配个生活例子</span></span>
+          <span class="task-content"><strong>大白话词典</strong></span>
           <span class="task-action">大白话词典<svg><use href="#i-arrow"></use></svg></span>
         </a>
         <a class="task-card claims" href="claims.html">
           <span class="task-icon"><svg><use href="#i-health"></use></svg></span>
-          <span class="task-content"><strong>出险了，接下来怎么办？</strong><span>梳理理赔流程，逐项准备材料</span></span>
+          <span class="task-content"><strong>理赔指引</strong></span>
           <span class="task-action">理赔指引<svg><use href="#i-arrow"></use></svg></span>
         </a>
       </div>
