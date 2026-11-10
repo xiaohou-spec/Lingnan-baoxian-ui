@@ -8,10 +8,10 @@ const mainNav = document.querySelector("#main-nav");
 const menuToggle = document.querySelector("#menu-toggle");
 
 const pageCopy = {
-  direction: ["找到保障方向", "回答三个问题，只了解方向，不推荐产品。"],
-  dictionary: ["查一个保险词", "点一个词，看白话解释和例子。"],
-  pitfalls: ["这些话，先别信。", "先问清楚，再做决定。"],
-  claims: ["出险后，准备这些材料", "逐项勾选，不会保存。"]
+  direction: ["查险方向", "三步了解保障方向，不推荐产品。"],
+  dictionary: ["大白话词典", "查名词，看白话解释。"],
+  pitfalls: ["避坑判断", "识话术，学会追问。"],
+  claims: ["理赔指引", "看流程，备材料。"]
 };
 
 function resetElderReadButton() {
@@ -27,6 +27,7 @@ function setElderCopy(enabled) {
   });
   title.innerHTML = enabled ? pageCopy[pageType][0] : title.dataset.standardHtml;
   description.innerHTML = enabled ? pageCopy[pageType][1] : description.dataset.standardHtml;
+  elderToolbar.querySelector(".container > span").lastChild.textContent = enabled ? "长辈模式已开启" : "简洁阅读模式：只保留重要内容";
 }
 
 elderToggle.addEventListener("click", () => {

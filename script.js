@@ -270,16 +270,16 @@ const elderToggle = document.querySelector("#elder-toggle");
 const elderToolbar = document.querySelector("#elder-toolbar");
 const elderReadButton = document.querySelector("#elder-read-page");
 const elderCopy = new Map([
-  ["#hero-title", "保险问题，<br>在这里问明白。"],
-  [".hero-description", "不卖保险，没有广告。只讲您能听懂的保险知识。"],
-  [".hero-search > label", "您想查什么？"],
+  ["#hero-title", "保险知识，<br>讲明白。"],
+  [".hero-description", "不卖保险，没有广告。"],
+  [".hero-search > label", "搜索保险知识"],
   [".search-control .primary-button", "查询"],
-  [".tasks-section .section-kicker", "四个常用功能"],
-  ["#tasks-title", "您想做什么？"],
-  [".task-card.direction .task-content strong", "查保险方向"],
-  [".task-card.warning .task-content strong", "识别销售话术"],
-  [".task-card.dictionary .task-content strong", "查保险名词"],
-  [".task-card.claims .task-content strong", "看理赔材料"],
+  [".tasks-section .section-kicker", "常用功能"],
+  ["#tasks-title", "选择功能"],
+  [".task-card.direction .task-content strong", "查险方向"],
+  [".task-card.warning .task-content strong", "避坑判断"],
+  [".task-card.dictionary .task-content strong", "大白话词典"],
+  [".task-card.claims .task-content strong", "理赔指引"],
   ["#dictionary-title", "查一个保险词"],
   ["#pitfalls-title", "这些话，先别信。"],
   [".pitfalls-intro > p:not(.section-kicker)", "先问清楚，再做决定。"],
@@ -298,7 +298,8 @@ function setElderCopy(enabled) {
     if (!element.dataset.standardHtml) element.dataset.standardHtml = element.innerHTML;
     element.innerHTML = enabled ? simplified : element.dataset.standardHtml;
   });
-  searchInput.placeholder = enabled ? "例如：免赔额" : "试试“免赔额”或“被忽悠了怎么办”";
+  searchInput.placeholder = enabled ? "例如：免赔额" : "输入名词或问题";
+  elderToolbar.querySelector(".container > span").lastChild.textContent = enabled ? "长辈模式已开启" : "简洁阅读模式：只保留重要内容";
 }
 
 elderToggle.addEventListener("click", () => {
