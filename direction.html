@@ -1,23 +1,27 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>查险方向｜明白保</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><script src="subpage.js" defer></script><script src="overlay.js" defer></script>
-</head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>险种查询｜明白保</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><script src="subpage.js" defer></script><script src="overlay.js" defer></script></head>
 <body data-page="direction">
   <a class="skip-link" href="#main">跳到主要内容</a>
-  <header class="site-header"><div class="header-inner container">
-    <a class="brand" href="index.html" aria-label="明白保首页"><span class="brand-mark"><svg><use href="icons.svg#i-shield"></use></svg></span><span class="brand-name">明白保<small>公益保险科普</small></span></a>
-    <nav class="main-nav" id="main-nav" aria-label="主导航"><a href="index.html">首页</a><a href="dictionary.html">大白话词典</a><a href="pitfalls.html">避坑指南</a><a href="claims.html">理赔指引</a></nav>
-    <div class="header-actions"><button class="elder-button" id="elder-toggle" type="button" aria-pressed="false"><svg><use href="icons.svg#i-type"></use></svg><span>长辈模式</span></button><button class="menu-button icon-button" id="menu-toggle" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="main-nav"><svg><use href="icons.svg#i-menu"></use></svg></button></div>
-  </div></header>
-  <section class="elder-toolbar" id="elder-toolbar" aria-label="长辈模式工具" hidden><div class="container"><span><svg><use href="icons.svg#i-check"></use></svg>简洁阅读模式：只保留重要内容</span><button id="elder-read-page" type="button" aria-pressed="false"><svg><use href="icons.svg#i-volume"></use></svg><span>朗读本页</span></button></div></section>
+  <header class="site-header"><div class="header-inner container"><a class="brand" href="index.html" aria-label="明白保首页"><span class="brand-mark"><svg><use href="icons.svg#i-shield"></use></svg></span><span class="brand-name">明白保<small>公益保险科普</small></span></a><nav class="main-nav" id="main-nav" aria-label="主导航"><a href="index.html">首页</a><a class="active" href="direction.html">险种查询</a><a href="dictionary.html">大白话词典</a><a href="pitfalls.html">避坑指南</a><a href="claims.html">理赔流程</a></nav><div class="header-actions"><button class="elder-button" id="elder-toggle" type="button" aria-pressed="false"><svg><use href="icons.svg#i-type"></use></svg><span>长辈模式</span></button><button class="menu-button icon-button" id="menu-toggle" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="main-nav"><svg><use href="icons.svg#i-menu"></use></svg></button></div></div></header>
+  <section class="elder-toolbar" id="elder-toolbar" aria-label="长辈模式工具" hidden><div class="container"><span><svg><use href="icons.svg#i-check"></use></svg>长辈模式已开启</span><button id="elder-read-page" type="button" aria-pressed="false"><svg><use href="icons.svg#i-volume"></use></svg><span>朗读本页</span></button></div></section>
   <main id="main">
-    <section class="module-hero" style="--module-image:url('assets/direction.jpg')"><div class="container"><a class="back-home" href="index.html"><svg><use href="icons.svg#i-arrow"></use></svg>返回首页</a><h1>查险方向</h1><p>三步了解保障方向，不推荐产品。</p></div><a class="module-photo-credit" href="https://www.pexels.com/photo/antique-compass-on-a-table-6593994/" target="_blank" rel="noopener">图片：Pexels</a></section>
-    <nav class="module-switcher container" aria-label="功能切换"><a class="active" href="direction.html">查险方向</a><a href="dictionary.html">大白话词典</a><a href="pitfalls.html">避坑判断</a><a href="claims.html">理赔指引</a></nav>
-    <section class="module-body container" aria-label="查险问答"><div class="direction-page-panel"><div class="wizard-progress"><span id="wizard-progress-bar"></span></div><div id="wizard-content"></div><p class="wizard-note"><svg><use href="icons.svg#i-shield"></use></svg>结果仅用于知识科普，不构成投保建议</p></div><p class="module-disclaimer">你不需要填写姓名、联系方式、收入或健康信息。</p><button class="secondary-button correction-open" type="button">内容有问题？我要纠错</button></section>
+    <section class="module-hero" style="--module-image:url('assets/direction.jpg')"><div class="container"><a class="back-home" href="index.html"><svg><use href="icons.svg#i-arrow"></use></svg>返回首页</a><h1>险种查询</h1><p>五步了解保障方向，不推荐产品。</p></div></section>
+    <section class="module-body container" aria-label="险种查询工具">
+      <p class="module-boundary">只指方向，不推产品、不报价，也不采集具体收入。</p>
+      <div class="direction-tabs" role="tablist" aria-label="查询方式"><button class="active" type="button" role="tab" aria-selected="true" data-direction-view="wizard">按问题找方向</button><button type="button" role="tab" aria-selected="false" data-direction-view="tree">看险种分类</button></div>
+      <div id="direction-wizard-view" class="direction-view"><div class="direction-page-panel"><div class="wizard-progress" aria-hidden="true"><span id="wizard-progress-bar"></span></div><div id="wizard-content" aria-live="polite"></div><p class="wizard-note"><svg><use href="icons.svg#i-shield"></use></svg>结果仅供学习，不构成投保建议</p></div></div>
+      <div id="direction-tree-view" class="direction-view" hidden>
+        <div class="class-tree"><div class="tree-root">长期保险常见分类</div><div class="tree-branches">
+          <section class="tree-branch protection"><h2>保障类 · 保人</h2><ul><li><strong>意外险</strong><span>意外身故、伤残与意外医疗</span></li><li><strong>医疗险</strong><span>报销医疗费用，补充医保</span></li><li><strong>重疾险</strong><span>患约定大病时一次性赔付</span></li><li><strong>定期寿险</strong><span>身故赔付，延续家庭责任</span></li></ul></section>
+          <section class="tree-branch savings"><h2>储蓄类 · 保钱</h2><ul><li><strong>教育年金</strong><span>教育储备与专款专用</span></li><li><strong>养老年金</strong><span>补充退休后的收入</span></li><li><strong>增额终身寿险 / 两全险</strong><span>长期储备与财富传承</span></li><li><strong>分红 / 万能 / 投连</strong><span>进阶类型，收益与风险并存</span></li></ul></section>
+        </div></div>
+      </div>
+      <div class="content-provenance"><span>原型示例 · 正式内容需绑定官方来源并专业审核</span><button type="button" class="correction-open">我要纠错</button></div>
+    </section>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><p>仅作保险知识科普，不推荐产品，不承诺理赔。</p><p class="prototype-label">明白保 · 公益保险科普</p></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><p>仅作知识科普，不推荐产品，不承诺理赔。</p><p class="prototype-label">明白保 · 公益保险科普</p></div></footer>
+  <dialog class="share-dialog" id="share-card-dialog" aria-labelledby="share-title"><button class="dialog-close icon-button" type="button" data-close-dialog aria-label="关闭"><svg><use href="icons.svg#i-close"></use></svg></button><h2 id="share-title">科普结论卡</h2><div class="share-card" id="share-card-body"></div><button class="primary-button" id="download-card" type="button">保存图片</button></dialog>
   <dialog class="correction-dialog" id="correction-dialog" aria-labelledby="correction-title"><button class="dialog-close icon-button" type="button" data-close-dialog aria-label="关闭"><svg><use href="icons.svg#i-close"></use></svg></button><div class="dialog-badge"><svg><use href="icons.svg#i-refresh"></use></svg>内容纠错</div><h2 id="correction-title">哪里需要改正？</h2><p class="dialog-description">无需填写姓名或联系方式。当前为外观原型，不会发送数据。</p><form id="correction-form"><label for="correction-content">问题描述</label><textarea id="correction-content" rows="5" required placeholder="请指出内容、来源或其他问题"></textarea><button class="primary-button" type="submit">预览提交反馈</button></form></dialog>
   <div class="toast" id="toast" role="status" hidden></div>
 </body>
