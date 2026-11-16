@@ -297,6 +297,9 @@ if (pageType === "direction") {
     });
   });
 
+  const requestedView = new URLSearchParams(window.location.search).get("view");
+  if (requestedView === "tree") document.querySelector('[data-direction-view="tree"]').click();
+
   function showShareCard() {
     document.querySelector("#share-card-body").innerHTML = `<span class="share-brand">明白保 · 公益保险科普</span><h3>${lastDirection}</h3><p>${lastReason}</p><ul><li>先确认已有社保与保障基础</li><li>看清免责、等待期和健康告知</li><li>分清保证与非保证利益</li></ul><small>无广告 · 无产品推荐<br>来源：产品方案示例 · 更新于 2026-11-13</small>`;
     shareDialog.showModal();
@@ -435,6 +438,8 @@ if (pageType === "pitfalls") {
       document.querySelector(".questions-block details").open = true;
     });
   });
+  const requestedScenario = new URLSearchParams(window.location.search).get("scenario");
+  if (requestedScenario && scenarios[requestedScenario]) document.querySelector(`[data-scenario="${requestedScenario}"]`).click();
 }
 
 if (pageType === "claims") {
@@ -470,5 +475,6 @@ if (pageType === "claims") {
       renderMaterials(button.dataset.claimType);
     });
   });
-  renderMaterials("医疗险");
+  const requestedType = new URLSearchParams(window.location.search).get("type");
+  if (requestedType && materials[requestedType]) document.querySelector(`[data-claim-type="${requestedType}"]`).click();
 }
