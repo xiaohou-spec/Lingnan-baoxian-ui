@@ -211,6 +211,29 @@ if (pageType === "direction") {
   let lastDirection = "";
   let lastReason = "";
 
+  function renderMatrix(type) {
+    const group = answers.identity === "为父母" ? "老人" : answers.identity === "为孩子" ? "孩子" : "成年人";
+    const groups = ["孩子", "成年人", "老人"];
+    const rows = {
+      protection: [
+        ["医疗险", ["yes", "yes", "yes"], ["医保 + 百万医疗", "医保 + 百万医疗", "同成年人"]],
+        ["意外险", ["yes", "yes", "yes"], ["优先", "优先", "优先"]],
+        ["重疾险", ["yes", "yes", "no"], ["优先", "优先", "先核保费与条件"]],
+        ["定期寿险", ["no", "yes", "no"], ["通常不急", "有责任时", "通常不急"]],
+        ["中高端医疗", ["conditional", "conditional", "conditional"], ["追求服务可考虑", "追求服务可考虑", "追求服务可考虑"]]
+      ],
+      savings: [
+        ["终身寿险", ["yes", "yes", "yes"], ["教育金 / 传承", "增值 / 传承", "给子女 / 孙辈"]],
+        ["养老年金", ["no", "yes", "yes"], ["通常不急", "提前做养老储备", "有一笔钱做养老储备"]],
+        ["教育年金", ["conditional", "no", "no"], ["灵活度不高", "通常不急", "通常不急"]]
+      ]
+    };
+    const marks = { yes: '<span class="matrix-yes" aria-label="优先了解">✓</span>', no: '<span class="matrix-no" aria-label="目前不急">×</span>', conditional: '<span class="matrix-conditional" aria-label="按需了解">•</span>' };
+    document.querySelectorAll("[data-matrix-type]").forEach(button => button.classList.toggle("active", button.dataset.matrixType === type));
+    document.querySelector("#matrix-container").innerHTML = `<table><caption>参考导师配置矩阵 · ${group}视角已高亮</caption><thead><tr><th>保险类型</th>${groups.map(name => `<th class="${name === group ? "selected-group" : ""}">${name}</th>`).join("")}</tr></thead><tbody>${rows[type].map(([name, values, notes]) => `<tr><th scope="row">${name}</th>${values.map((value, index) => `<td class="${groups[index] === group ? "selected-group" : ""}">${marks[value]}<small>${notes[index]}</small></td>`).join("")}</tr>`).join("")}</tbody></table>`;
+    document.querySelectorAll("[data-matrix-type]").forEach(button => { button.onclick = () => renderMatrix(button.dataset.matrixType); });
+  }
+
   function updateWizard() {
     if (wizardStep >= wizardSteps.length) {
       const savings = ["想给孩子存教育金", "想给自己存养老金", "怕存款贬值想保值增值"];
@@ -219,7 +242,8 @@ if (pageType === "direction") {
       lastDirection = hasProtection && selectedSavings.length ? "先保障，再考虑储蓄" : hasProtection ? "优先了解保障类保险" : "先了解储蓄类保险";
       const concernText = answers.concerns.slice(0, 2).join("、") + (answers.concerns.length > 2 ? "等" : "");
       lastReason = `你选择为${answers.identity.replace(/^为/, "")}了解，并关注${concernText}。先看清保障责任与限制，再考虑长期储蓄安排。`;
-      wizardContent.innerHTML = `<div class="wizard-result"><span>你的了解方向</span><h3>${lastDirection}</h3><p class="result-reason">${lastReason}</p><div class="result-layout"><div class="pyramid" role="img" aria-label="保险配置金字塔：先基础保障，再重疾和寿险，最后考虑年金与进阶储蓄"><div class="pyramid-layer top">年金与进阶储蓄</div><div class="pyramid-layer middle">重疾 / 定期寿险</div><div class="pyramid-layer base">医保 / 医疗 / 意外</div></div><div class="result-checklist"><strong>投保前核对</strong><ul><li>先确认已有社保与保障基础</li><li>阅读免责、等待期和健康告知</li><li>储蓄部分分清保证与非保证利益</li></ul></div></div><details class="matrix-details"><summary>查看人群配置参考矩阵</summary><div class="matrix-scroll"><table><caption>仅作学习顺序示意，不是产品推荐</caption><thead><tr><th>人群</th><th>医疗</th><th>意外</th><th>重疾</th><th>定寿</th><th>年金</th></tr></thead><tbody><tr><th>孩子</th><td>优先</td><td>优先</td><td>按需</td><td>通常不急</td><td>按需</td></tr><tr><th>成年人</th><td>优先</td><td>优先</td><td>优先</td><td>有责任时</td><td>有余力时</td></tr><tr><th>老人</th><td>先核条件</td><td>优先</td><td>先核条件</td><td>通常不急</td><td>谨慎了解</td></tr></tbody></table></div></details><p class="result-disclaimer">只提供了解方向，不构成投保建议、核保结论或收益承诺。</p><div class="result-actions"><button class="primary-button" id="share-result" type="button">生成结论卡</button><button class="secondary-button" id="wizard-restart" type="button">重新查询</button></div></div>`;
+      wizardContent.innerHTML = `<div class="wizard-result"><span>你的了解方向</span><h3>${lastDirection}</h3><p class="result-reason">${lastReason}</p><div class="result-layout"><div class="pyramid" role="img" aria-label="家庭风险管理金字塔：损失性风险、支出性风险和所有性风险"><div class="pyramid-layer top">所有性风险 · 婚姻 / 税务 / 债务</div><div class="pyramid-layer middle">支出性风险 · 养老 / 教育 / 工作责任</div><div class="pyramid-layer base">损失性风险 · 疾病 / 意外 / 身故</div></div><div class="result-checklist"><strong>投保前核对</strong><ul><li>先确认已有社保与保障基础</li><li>阅读免责、等待期和健康告知</li><li>储蓄部分分清保证与非保证利益</li></ul></div></div><details class="matrix-details"><summary>查看人群配置参考矩阵</summary><div class="matrix-tabs" role="tablist" aria-label="矩阵类型"><button class="active" type="button" data-matrix-type="protection">保障类</button><button type="button" data-matrix-type="savings">储蓄类</button></div><div class="matrix-scroll" id="matrix-container"></div></details><p class="result-disclaimer">只提供了解方向，不构成投保建议、核保结论或收益承诺。</p><div class="result-actions"><button class="primary-button" id="share-result" type="button">生成结论卡</button><button class="secondary-button" id="wizard-restart" type="button">重新查询</button></div></div>`;
+      renderMatrix(selectedSavings.length && !hasProtection ? "savings" : "protection");
       document.querySelector("#wizard-restart").addEventListener("click", () => {
         Object.keys(answers).forEach(key => delete answers[key]);
         wizardStep = 0;
@@ -341,30 +365,74 @@ if (pageType === "direction") {
 
 if (pageType === "pitfalls") {
   const scenarios = {
-    yield: { quote: "“终身保证收益6%。”", title: "演示收益不等于保证收益", text: "没有写入合同保证利益的演示数字，不能当成确定收益。", questions: ["哪部分利益写进合同并保证？", "保证利率和演示利率分别是多少？", "提前退出会有什么损失？"], answers: ["要求指出合同中的具体条款位置，不只看宣传页。", "把保证与非保证部分分开记录，再理解浮动风险。", "查看不同保单年度的现金价值与退保约定。"], correct: "拿到完整合同，区分保证利益与演示利益。" },
-    coverage: { quote: "“这款产品什么都保，闭眼买就行。”", title: "保障清单不等于赔付承诺", text: "每份保险都有保障范围、免责和赔付条件，“都保”省略了限制。", questions: ["哪些情况明确不赔？", "等待期和免赔额分别是多少？", "达到什么条件才符合赔付？"], answers: ["请对方指出责任免除条款的位置。", "问清金额、时间和计算方式，再核对合同。", "查看疾病或事故的合同约定定义。"], correct: "重点阅读保障责任、责任免除、等待期和赔付条件。" },
-    health: { quote: "“健康告知不用细看，少写一点更省事。”", title: "口头承诺不能替代如实告知", text: "健康告知是书面问题，省略或误答可能影响后续承保与理赔。", questions: ["健康告知具体问哪些情况？", "已有检查异常需要怎样说明？", "能否保留告知内容和提交记录？"], answers: ["按书面问题如实回答，不凭口头建议省略。", "按已知情况提供资料，不自行判断“没住院就不算”。", "保存投保页面、问卷和提交凭证。"], correct: "逐项阅读书面问题，如实回答并保留记录。" }
+    yield: { quote: "“终身保证收益6%。”", title: "演示收益不等于保证收益", text: "没有写入合同保证利益的演示数字，不能当成确定收益。", questions: ["哪部分利益写进合同并保证？", "保证利率和演示利率分别是多少？", "提前退出会有什么损失？"], answers: ["要求指出合同中的具体条款位置，不只看宣传页。", "把保证与非保证部分分开记录，再理解浮动风险。", "查看不同保单年度的现金价值与退保约定。"], correct: "拿到完整合同，区分保证利益与演示利益。", practice: ["看到“终身保证收益6%”，先核实什么？", "是否写入合同保证", "广告是否足够吸引人"] },
+    coverage: { quote: "“这款产品什么都保，闭眼买就行。”", title: "保障清单不等于赔付承诺", text: "每份保险都有保障范围、免责和赔付条件，“都保”省略了限制。", questions: ["哪些情况明确不赔？", "等待期和免赔额分别是多少？", "达到什么条件才符合赔付？"], answers: ["请对方指出责任免除条款的位置。", "问清金额、时间和计算方式，再核对合同。", "查看疾病或事故的合同约定定义。"], correct: "重点阅读保障责任、责任免除、等待期和赔付条件。", practice: ["“什么都保”最先看哪部分？", "免责和赔付条件", "广告里的保额数字"] },
+    health: { quote: "“健康告知不用细看，少写一点更省事。”", title: "口头承诺不能替代如实告知", text: "健康告知是书面问题，省略或误答可能影响后续承保与理赔。", questions: ["健康告知具体问哪些情况？", "已有检查异常需要怎样说明？", "能否保留告知内容和提交记录？"], answers: ["按书面问题如实回答，不凭口头建议省略。", "按已知情况提供资料，不自行判断“没住院就不算”。", "保存投保页面、问卷和提交凭证。"], correct: "逐项阅读书面问题，如实回答并保留记录。", practice: ["已有检查异常应该怎么处理？", "按书面问题如实告知", "没住院就不用说"] }
+  };
+  const riskDetails = {
+    "免责条款": ["免责条款：先看不赔什么", "责任免除列明不承担责任的情形，与保障范围同样重要。", "哪些情况明确不赔？", "要求指出责任免除条款的位置，而不是只听口头概括。"],
+    "等待期": ["等待期：生效不等于立即可赔", "等待期内发生约定事故，可能无法按约定赔付，不同责任可能不同。", "等待期有多长，哪些责任受影响？", "问清等待期的天数、适用责任和特殊例外。"],
+    "健康告知": ["健康告知：决定未来理赔的重要依据", "书面问题需要如实回答，省略或误答可能影响承保与理赔。", "这项检查异常需要告知吗？", "按书面问题和已有情况如实回答，并保留提交记录。"],
+    "免赔额": ["免赔额：先承担多少，再谈报销", "赔付前需要先扣除约定免赔额，金额和计算方式因合同而异。", "免赔额是每次还是每年计算？", "确认免赔额类型、金额以及哪些费用可以累计。"],
+    "现金价值": ["现金价值：提前退保不等于退回保费", "长期保险退保时按现金价值计算，提前退出可能有损失。", "第几年退保能拿回多少？", "查看对应保单年度的现金价值表和退保约定。"],
+    "保证续保": ["保证续保：保证的是期间，不是终身", "保证续保有明确期间和条件，不等于保费、条款永远不变。", "保证续保多久，什么条件下有效？", "核对保证期间、续保条件和费率调整约定。"]
   };
   const swapPitfall = createContentSwapper(document.querySelector(".pitfall-detail"));
+  const practiceA = document.querySelector("#practice-a");
+  const practiceB = document.querySelector("#practice-b");
+  const practiceFeedback = document.querySelector("#practice-feedback");
+
+  function renderPractice(key) {
+    const [question, correctText, wrongText] = scenarios[key].practice;
+    document.querySelector("#practice-question").textContent = question;
+    practiceA.textContent = correctText;
+    practiceA.dataset.correct = "true";
+    practiceB.textContent = wrongText;
+    practiceB.dataset.correct = "false";
+    practiceFeedback.textContent = "";
+    practiceFeedback.className = "";
+  }
+
+  [practiceA, practiceB].forEach(button => button.addEventListener("click", () => {
+    const correct = button.dataset.correct === "true";
+    practiceFeedback.textContent = correct ? "回答正确。先核实合同与书面条件，而不是宣传话术。" : "这个不是首要依据。请先核实合同与书面条件。";
+    practiceFeedback.className = correct ? "correct" : "incorrect";
+  }));
+
   document.querySelectorAll("[data-scenario]").forEach(button => {
     button.addEventListener("click", () => {
-      const scenario = scenarios[button.dataset.scenario];
+      const key = button.dataset.scenario;
+      const scenario = scenarios[key];
       document.querySelectorAll("[data-scenario]").forEach(item => {
         const selected = item === button;
         item.classList.toggle("active", selected);
         item.setAttribute("aria-selected", String(selected));
       });
+      document.querySelectorAll("[data-risk]").forEach(item => item.classList.remove("active"));
       swapPitfall(() => {
         document.querySelector("#pitfall-quote").textContent = scenario.quote;
         document.querySelector("#risk-title").textContent = scenario.title;
         document.querySelector("#risk-text").textContent = scenario.text;
-        ["one", "two", "three"].forEach((key, index) => {
-          document.querySelector(`#question-${key}`).firstChild.textContent = scenario.questions[index];
-          document.querySelector(`#answer-${key}`).textContent = scenario.answers[index];
+        ["one", "two", "three"].forEach((name, index) => {
+          document.querySelector(`#question-${name}`).firstChild.textContent = scenario.questions[index];
+          document.querySelector(`#answer-${name}`).textContent = scenario.answers[index];
         });
         document.querySelector("#correct-action-text").textContent = scenario.correct;
         document.querySelectorAll(".questions-block details").forEach((detail, index) => { detail.open = index === 0; });
+        renderPractice(key);
       });
+    });
+  });
+
+  document.querySelectorAll("[data-risk]").forEach(button => {
+    button.addEventListener("click", () => {
+      const [title, text, question, answer] = riskDetails[button.dataset.risk];
+      document.querySelectorAll("[data-risk]").forEach(item => item.classList.toggle("active", item === button));
+      document.querySelector("#risk-title").textContent = title;
+      document.querySelector("#risk-text").textContent = text;
+      document.querySelector("#question-one").firstChild.textContent = question;
+      document.querySelector("#answer-one").textContent = answer;
+      document.querySelector(".questions-block details").open = true;
     });
   });
 }
