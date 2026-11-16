@@ -915,3 +915,6 @@ body { padding-bottom: 72px; }
   .nav-child:hover { background: var(--sage); color: var(--ink); }
   .nav-expand:hover { background: var(--sage); color: var(--green); }
 }
+
+
+.iceberg-visual text { stroke: none; font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif; text-rendering: geometricPrecision; }
