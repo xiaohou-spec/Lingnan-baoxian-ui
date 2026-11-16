@@ -918,3 +918,33 @@ body { padding-bottom: 72px; }
 
 
 .iceberg-visual text { stroke: none; font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif; text-rendering: geometricPrecision; }
+
+
+.iceberg-figure { width: 100%; min-height: 390px; display: flex; flex-direction: column; overflow: hidden; border: 1px solid #c7d9ce; border-radius: 18px; background: var(--white); }
+.iceberg-caption { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 15px 18px; border-bottom: 1px solid var(--border); }
+.iceberg-caption > span { color: var(--ink); font-size: 14px; font-weight: 800; }
+.iceberg-caption > small { color: var(--muted); font-size: 10px; }
+.iceberg-above { position: relative; flex: 0 0 175px; padding: 22px 20px 0; background: #f2f7f3; }
+.iceberg-zone-label { position: relative; z-index: 2; display: block; color: var(--green); font-size: 13px; font-weight: 800; }
+.iceberg-above strong { position: relative; z-index: 2; display: block; margin-top: 7px; color: var(--ink); font-size: 17px; line-height: 1.5; }
+.iceberg-tip { position: absolute; left: 50%; bottom: 0; width: 120px; height: 105px; background: var(--white); clip-path: polygon(50% 0, 100% 100%, 0 100%); transform: translateX(-50%); filter: drop-shadow(0 0 1px #8eafa0); }
+.iceberg-waterline { position: relative; height: 20px; display: flex; align-items: center; justify-content: center; background: #dcebe7; color: #4b8b7b; font-size: 10px; }
+.iceberg-waterline::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 2px dashed #4b8b7b; }
+.iceberg-waterline span { position: relative; z-index: 1; padding: 0 8px; background: #dcebe7; }
+.iceberg-below { position: relative; flex: 1; min-height: 190px; padding: 22px 20px; background: #dcebe7; }
+.iceberg-body { position: absolute; left: 50%; top: -12px; width: 150px; height: 120px; background: #82aa9b; clip-path: polygon(12% 0, 88% 0, 100% 80%, 50% 100%, 0 80%); opacity: 0.55; transform: translateX(-50%); }
+.iceberg-below > span, .iceberg-below > strong, .iceberg-below > small { position: relative; z-index: 1; display: block; }
+.iceberg-below > strong { margin-top: 7px; color: #173c35; font-size: 16px; line-height: 1.55; }
+.iceberg-below > small { max-width: 230px; margin-top: 7px; color: #294d43; font-size: 12px; line-height: 1.7; }
+@media (max-width: 640px) {
+  .iceberg-figure { min-height: 355px; }
+  .iceberg-above { flex-basis: 155px; padding-top: 18px; }
+  .iceberg-tip { width: 95px; height: 88px; }
+  .iceberg-body { width: 125px; height: 100px; opacity: 0.45; }
+  .iceberg-below { min-height: 170px; padding-top: 18px; }
+  .iceberg-caption { padding: 13px 15px; }
+}
+.elder-mode .iceberg-zone-label { font-size: 17px; }
+.elder-mode .iceberg-above strong { font-size: 20px; }
+.elder-mode .iceberg-below > strong { font-size: 18px; }
+.elder-mode .iceberg-below > small { font-size: 16px; }
