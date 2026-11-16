@@ -380,27 +380,141 @@ if (pageType === "pitfalls") {
     "现金价值": ["现金价值：提前退保不等于退回保费", "长期保险退保时按现金价值计算，提前退出可能有损失。", "第几年退保能拿回多少？", "查看对应保单年度的现金价值表和退保约定。"],
     "保证续保": ["保证续保：保证的是期间，不是终身", "保证续保有明确期间和条件，不等于保费、条款永远不变。", "保证续保多久，什么条件下有效？", "核对保证期间、续保条件和费率调整约定。"]
   };
+  const practiceBank = [
+    { category: "收益承诺", question: "看到“终身保证收益6%”，先核实什么？", options: ["是否写入合同保证利益", "宣传页是否足够精美", "销售人员从业多少年"], answer: 0, explanation: "演示数字不等于保证收益，先查看合同中的保证利益。" },
+    { category: "收益承诺", question: "宣传页同时列出高、中、低档收益，应该怎么看？", options: ["把最高档当成确定收益", "分开核对保证与非保证部分", "只看平均值即可"], answer: 1, explanation: "不同档位是演示情景，保证利益与非保证利益要分开理解。" },
+    { category: "现金价值", question: "想知道提前退保能拿回多少，应优先查看什么？", options: ["已交保费总额", "对应保单年度的现金价值表", "宣传页上的预期收益"], answer: 1, explanation: "退保通常按对应年度的现金价值计算，不等于退回全部保费。" },
+    { category: "保障范围", question: "听到“这款产品什么都保”，最先核对哪部分？", options: ["免责条款和赔付条件", "广告里的保额数字", "产品名称是否响亮"], answer: 0, explanation: "保障责任、责任免除和赔付条件共同决定实际保障范围。" },
+    { category: "等待期", question: "合同已经生效，为什么还要问等待期？", options: ["等待期会影响部分责任能否赔付", "等待期只影响发票打印", "生效后所有责任都立即可赔"], answer: 0, explanation: "等待期内发生约定事故可能无法赔付，还要核对适用责任与例外。" },
+    { category: "免赔额", question: "了解免赔额时，哪组信息最重要？", options: ["金额、计算周期和累计方式", "广告颜色和代理人评分", "产品销量和海报大小"], answer: 0, explanation: "免赔额可能按次或按年计算，金额和累计方式会影响实际报销。" },
+    { category: "健康告知", question: "投保前发现曾有检查异常，应该怎么做？", options: ["没住院就一律不说", "按书面问题如实回答并保留记录", "让销售人员口头决定是否填写"], answer: 1, explanation: "按健康告知的具体问题作答，不凭口头建议省略，并保存提交记录。" },
+    { category: "健康告知", question: "销售人员说“这项不用告知”，更稳妥的做法是？", options: ["直接省略所有异常", "重新核对书面问卷并保留沟通记录", "只听从口头承诺"], answer: 1, explanation: "口头承诺不能替代书面告知，必要时应向保险公司官方渠道确认。" },
+    { category: "续保条件", question: "看到“保证续保”，还需要核对什么？", options: ["保证期间、续保条件和费率调整约定", "是否可以终身无条件续保", "宣传页有没有写“终身”"], answer: 0, explanation: "保证续保有明确期间和条件，不等于保费与条款永远不变。" }
+  ];
   const swapPitfall = createContentSwapper(document.querySelector(".pitfall-detail"));
-  const practiceA = document.querySelector("#practice-a");
-  const practiceB = document.querySelector("#practice-b");
+  const practiceCard = document.querySelector("#practice-card");
+  const practiceOptions = document.querySelector("#practice-options");
+  const practiceQuestion = document.querySelector("#practice-question");
   const practiceFeedback = document.querySelector("#practice-feedback");
+  const practiceNext = document.querySelector("#practice-next");
+  const practiceResult = document.querySelector("#practice-result");
+  const practiceProgressTrack = document.querySelector("#practice-progress-track");
+  const practiceRoundSize = 3;
+  let practiceRound = [];
+  let practiceIndex = 0;
+  let practiceScore = 0;
+  let practiceAnswered = false;
 
-  function renderPractice(key) {
-    const [question, correctText, wrongText] = scenarios[key].practice;
-    document.querySelector("#practice-question").textContent = question;
-    practiceA.textContent = correctText;
-    practiceA.dataset.correct = "true";
-    practiceB.textContent = wrongText;
-    practiceB.dataset.correct = "false";
-    practiceFeedback.textContent = "";
-    practiceFeedback.className = "";
+  function drawPracticeRound() {
+    const questions = [...practiceBank];
+    for (let index = questions.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [questions[index], questions[randomIndex]] = [questions[randomIndex], questions[index]];
+    }
+    return questions.slice(0, practiceRoundSize);
   }
 
-  [practiceA, practiceB].forEach(button => button.addEventListener("click", () => {
-    const correct = button.dataset.correct === "true";
-    practiceFeedback.textContent = correct ? "回答正确。先核实合同与书面条件，而不是宣传话术。" : "这个不是首要依据。请先核实合同与书面条件。";
-    practiceFeedback.className = correct ? "correct" : "incorrect";
-  }));
+  function renderPracticeQuestion() {
+    const item = practiceRound[practiceIndex];
+    practiceAnswered = false;
+    document.querySelector("#practice-category").textContent = item.category;
+    practiceQuestion.textContent = item.question;
+    document.querySelector("#practice-progress").textContent = `第 ${practiceIndex + 1} / ${practiceRoundSize} 题`;
+    practiceProgressTrack.setAttribute("aria-valuenow", String(practiceIndex + 1));
+    document.querySelector("#practice-progress-fill").style.transform = `scaleX(${(practiceIndex + 1) / practiceRoundSize})`;
+    practiceFeedback.hidden = true;
+    practiceFeedback.className = "practice-feedback";
+    practiceNext.hidden = true;
+    practiceOptions.replaceChildren(...item.options.map((option, optionIndex) => {
+      const button = document.createElement("button");
+      const letter = document.createElement("span");
+      const text = document.createElement("span");
+      button.type = "button";
+      button.dataset.optionIndex = String(optionIndex);
+      letter.className = "option-letter";
+      letter.textContent = String.fromCharCode(65 + optionIndex);
+      text.textContent = option;
+      button.append(letter, text);
+      button.addEventListener("click", () => answerPractice(optionIndex));
+      return button;
+    }));
+  }
+
+  function answerPractice(selectedIndex) {
+    if (practiceAnswered) return;
+    practiceAnswered = true;
+    const item = practiceRound[practiceIndex];
+    const correct = selectedIndex === item.answer;
+    if (correct) practiceScore += 1;
+    [...practiceOptions.children].forEach((button, optionIndex) => {
+      button.disabled = true;
+      if (optionIndex === item.answer) button.classList.add("correct");
+      if (optionIndex === selectedIndex && !correct) button.classList.add("incorrect");
+    });
+    document.querySelector("#practice-feedback-title").textContent = correct ? "回答正确" : `正确答案：${item.options[item.answer]}`;
+    document.querySelector("#practice-explanation").textContent = item.explanation;
+    practiceFeedback.classList.add(correct ? "correct" : "incorrect");
+    practiceFeedback.hidden = false;
+    practiceNext.textContent = practiceIndex === practiceRoundSize - 1 ? "查看结果" : "下一题";
+    practiceNext.hidden = false;
+  }
+
+  function showPracticeResult() {
+    practiceCard.hidden = true;
+    practiceResult.hidden = false;
+    document.querySelector("#practice-progress").textContent = "本轮完成";
+    document.querySelector("#practice-score").textContent = `${practiceScore} / ${practiceRoundSize}`;
+    document.querySelector("#practice-result-title").textContent = practiceScore === 3 ? "全部答对，判断很稳" : practiceScore === 2 ? "掌握得不错" : "再练一轮会更熟悉";
+    document.querySelector("#practice-result-copy").textContent = practiceScore === 3 ? "已经掌握这组避坑要点。" : "题目会重新随机抽取，帮你巩固判断方法。";
+    document.querySelector("#practice-restart").focus({ preventScroll: true });
+  }
+
+  function startPracticeRound() {
+    practiceRound = drawPracticeRound();
+    practiceIndex = 0;
+    practiceScore = 0;
+    practiceResult.hidden = true;
+    practiceCard.hidden = false;
+    renderPracticeQuestion();
+  }
+
+  practiceNext.addEventListener("click", () => {
+    if (!practiceAnswered) return;
+    if (practiceIndex === practiceRoundSize - 1) { showPracticeResult(); return; }
+    practiceIndex += 1;
+    renderPracticeQuestion();
+    practiceQuestion.focus({ preventScroll: true });
+  });
+  document.querySelector("#practice-restart").addEventListener("click", () => {
+    startPracticeRound();
+    practiceQuestion.focus({ preventScroll: true });
+  });
+
+  const viewTabs = [...document.querySelectorAll("[data-pitfall-view]")];
+  function switchPitfallView(view, updateHash = true) {
+    viewTabs.forEach(tab => {
+      const selected = tab.dataset.pitfallView === view;
+      tab.classList.toggle("active", selected);
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+    });
+    document.querySelector("#learning-panel").hidden = view !== "learn";
+    document.querySelector("#practice-panel").hidden = view !== "practice";
+    if (updateHash) history.replaceState(null, "", view === "practice" ? "#practice-panel" : "#learning-panel");
+  }
+  viewTabs.forEach((tab, tabIndex) => {
+    tab.addEventListener("click", () => switchPitfallView(tab.dataset.pitfallView));
+    tab.addEventListener("keydown", event => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? viewTabs.length - 1 : (tabIndex + (event.key === "ArrowRight" ? 1 : -1) + viewTabs.length) % viewTabs.length;
+      viewTabs[nextIndex].focus();
+      switchPitfallView(viewTabs[nextIndex].dataset.pitfallView);
+    });
+  });
+  window.addEventListener("hashchange", () => {
+    if (["#practice-panel", "#learning-panel"].includes(window.location.hash)) switchPitfallView(window.location.hash === "#practice-panel" ? "practice" : "learn", false);
+  });
 
   document.querySelectorAll("[data-scenario]").forEach(button => {
     button.addEventListener("click", () => {
@@ -422,7 +536,6 @@ if (pageType === "pitfalls") {
         });
         document.querySelector("#correct-action-text").textContent = scenario.correct;
         document.querySelectorAll(".questions-block details").forEach((detail, index) => { detail.open = index === 0; });
-        renderPractice(key);
       });
     });
   });
@@ -435,9 +548,11 @@ if (pageType === "pitfalls") {
       document.querySelector("#risk-text").textContent = text;
       document.querySelector("#question-one").firstChild.textContent = question;
       document.querySelector("#answer-one").textContent = answer;
-      document.querySelector(".questions-block details").open = true;
+      document.querySelectorAll(".questions-block details").forEach((detail, index) => { detail.open = index === 0; });
     });
   });
+  startPracticeRound();
+  if (window.location.hash === "#practice-panel") switchPitfallView("practice", false);
   const requestedScenario = new URLSearchParams(window.location.search).get("scenario");
   if (requestedScenario && scenarios[requestedScenario]) document.querySelector(`[data-scenario="${requestedScenario}"]`).click();
 }
